@@ -20,15 +20,9 @@ def list_rules(request):
     List rules of gamefication
     """
 
-    page_size = request.GET['page_size']
     paginator = PageNumberPagination()
-    paginator.page_size = page_size
+    paginator.page_size = request.GET['page_size']
     paginator.page_query_param = 'page'
-
-    static_root = settings.STATIC_ROOT
-    file_path = os.path.join(static_root, 'gamefication.xlsx')
-    xlsx = pd.read_excel(file_path)
-
 
     rules = Rule.objects.all().order_by("-created_at")
 
@@ -40,7 +34,7 @@ def list_rules(request):
 @permission_classes([AllowAny])
 def populate_excel(request):
     """
-    List rules of gamefication
+    Populate rules of gamefication
     """
     # static_root = settings.STATIC_ROOT
     # file_path = os.path.join(static_root, 'gamefication.xlsx')
